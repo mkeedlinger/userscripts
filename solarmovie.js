@@ -31,9 +31,9 @@ var l = {
         addListener: GM_addValueChangeListener
     };
 
-if ($('.dataTable')) {
+if ($('.dataTable')) { // on a links page
     setTimeout(function () {
-        $('.js-comment, .commentRow').remove();
+        $('.commentsTree').remove();
     }, 750);
     $('.showmoreCell a').click();
     GM_addStyle('.dataTable tbody .oddCell {background-color:rgba(231,239,243,.5)}');
@@ -43,7 +43,6 @@ if ($('.dataTable')) {
         great = ['played.to', 'clicktoview.org'];
     $('.dataTable tbody tr:not(.sponsorLink) td:first-child > a')
     .each(function () {
-        l.l('running...')
         var tr = this.parentElement.parentElement;
         if (great.indexOf(this.innerText) !== -1) {
             tr.style.backgroundColor = 'rgba(230,0,0,.2)';
@@ -53,6 +52,19 @@ if ($('.dataTable')) {
             tr.remove();
         }
     });
-    l.l('NOOOOOOOOOOOOOOOO');
     $($('.dataTable tbody')[0]).prepend(top);
+    $('.dataTable tbody tr:not(.sponsorLink)').each(function (ind) {
+        if (ind >= 40) {
+            this.remove()
+        }
+    });
+    document.body.scrollIntoView()
+    $('.dataTable tbody tr:not(.sponsorLink) td:first-child > a')
+    .each(function () {
+        $.get(this.href, function (data) {
+            l.l(data);
+        });
+    });
+} else if ($('.watchMovieBlock')) { // you've come to a link page. you
+    //
 }
