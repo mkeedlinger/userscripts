@@ -83,7 +83,10 @@ if ((new URL(window.location.href).hostname) === "www.solarmovie.is") {
                 height : "100vh"
             });
             $("body").html(ret);
-            $('iframe')[0].contentWindow.postMessage(secret, '*');
+            $('iframe').load(function () {
+                $('iframe')[0].contentWindow.postMessage(secret, '*');
+            });
+            // $('iframe')[0].contentWindow.postMessage(secret, '*');
             console.log('parent ran');
             return false; // stops default and propagation
         });
