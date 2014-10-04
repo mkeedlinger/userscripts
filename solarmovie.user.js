@@ -73,8 +73,18 @@ if ((new URL(window.location.href).hostname) === "www.solarmovie.is") {
     } else if ($('#frame').length) { // you've come to a player page
         $('.partnerButton').attr('href', '#').text('Play in fullscreen').removeAttr('target')
         .click(function (e) {
-            alert("This isn't functional yet. Try again later");
+            var ret = $("iframe");
+            $("body").css({
+                margin : 0,
+                padding : 0
+            });
+            ret.css({
+                width : "100vw",
+                height : "100vh"
+            });
+            $("body").html(ret);
             $('iframe')[0].contentWindow.postMessage(secret, '*');
+            console.log('parent ran');
             return false; // stops default and propagation
         });
         // $.get($('a[title="Back to movie page"]')[0].href, function (data) {
@@ -108,7 +118,19 @@ if ((new URL(window.location.href).hostname) === "www.solarmovie.is") {
     window.addEventListener("message", function (event) {
         if (event.origin === "http://www.solarmovie.is"
             && event.data === secret) {
-            // make it fullscreen
+            var ret = $("object, embed");
+            if (ret.length) {
+                $("body").css({
+                    margin : 0,
+                    padding : 0
+                });
+                ret.css({
+                    width : "100vw",
+                    height : "100vh"
+                });
+                $("body").html(ret);
+            }
+            console.log('child ran');
         };
     }, false);
 }
