@@ -83,6 +83,13 @@ if ((new URL(window.location.href).hostname) === "www.solarmovie.is") {
                 height : "100vh"
             });
             $("body").html(ret);
+            var html = '<section id="iBack" style="background-color: black; padding: '
+                + '5px 5px; text-align: center;"><a href="javascript:;" style="color: '
+                + 'darkgray; font-size: 16px;">Back</a></section>';
+            $("body").prepend($(html));
+            $("#iBack").click(function () {
+                window.location.reload();
+            });
             $('iframe').load(function () {
                 $('iframe')[0].contentWindow.postMessage(secret, '*');
             });
