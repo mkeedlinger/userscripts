@@ -5,9 +5,9 @@
 // @version 0.1.0
 // @description Some nice touches to solarmovie
 // @homepage https://github.com/mkeedlinger/userscripts
-// @source https://github.com/mkeedlinger/userscripts/blob/master/solarmovie.js
-// @updateURL https://raw.githubusercontent.com/mkeedlinger/userscripts/master/solarmovie.js
-// @downloadURL https://raw.githubusercontent.com/mkeedlinger/userscripts/master/solarmovie.js
+// @source https://github.com/mkeedlinger/userscripts/blob/master/solarmovie.user.js
+// @updateURL https://github.com/mkeedlinger/userscripts/raw/master/solarmovie.user.js
+// @downloadURL https://github.com/mkeedlinger/userscripts/raw/master/solarmovie.user.js
 // @include http*://*.solarmovie.is/*
 // @require https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
 // @run-at document-end
