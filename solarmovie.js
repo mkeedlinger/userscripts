@@ -31,7 +31,8 @@ var l = {
         addListener: GM_addValueChangeListener
     };
 
-if ($('.dataTable')) { // on a links page
+if ($('.dataTable').length) { // on a links page
+    console.log(1);
     setTimeout(function () {
         $('.commentsTree').remove();
     }, 750);
@@ -45,7 +46,7 @@ if ($('.dataTable')) { // on a links page
     .each(function () {
         var tr = this.parentElement.parentElement;
         if (great.indexOf(this.innerText) !== -1) {
-            tr.style.backgroundColor = 'rgba(230,0,0,.2)';
+            tr.style.backgroundColor = 'rgba(230,0,0,.05)';
             top.push(tr);
             tr.remove();
         } else if (remove.indexOf(this.innerText) !== -1) {
@@ -54,17 +55,48 @@ if ($('.dataTable')) { // on a links page
     });
     $($('.dataTable tbody')[0]).prepend(top);
     $('.dataTable tbody tr:not(.sponsorLink)').each(function (ind) {
-        if (ind >= 40) {
-            this.remove()
+        if (ind >= 10) {
+            $(this).hide()
         }
     });
     document.body.scrollIntoView()
     $('.dataTable tbody tr:not(.sponsorLink) td:first-child > a')
     .each(function () {
-        $.get(this.href, function (data) {
-            l.l(data);
+        var link = this;
+        $.get(link.href, function (data) {
+            link.href = $(data).find('.linksWrapper .fullyGreenButton')[0].href;
         });
     });
-} else if ($('.watchMovieBlock')) { // you've come to a link page. you
-    //
+} else if ($('#frame').length) { // you've come to a player page
+    $('.partnerButton').attr('href', '#').text('Play in fullscreen').removeAttr('target')
+    .click(function (e) {
+        alert("This isn't functional yet. Try again later");
+        return false; // stops default and propagation
+    });
+    // $.get($('a[title="Back to movie page"]')[0].href, function (data) {
+    //     if ($(data).find('#header .menuBoxHeader .active')[0].innerText === "TV SHOWS") {
+    //         var episode = parseInt($('span.season_episode')[0]
+    //             .innerText.replace(/\D/g, ''));
+    //         $.get($(data).find('div.breadcrumb li:last-child a')[0].href, function (d) {
+    //             var found = false,
+    //                 origEpisode = null;
+    //             $(d).find('div.seasonEpisodeList span.epnomber a').each(function () {
+    //                 if (parseInt(this.innerText.replace(/\D/g, '')) + 1 === episode) {
+    //                     $('a[title="Back to link page"]').removeAttr('title')
+    //                     .attr('href', this.href).text('Next Episode');
+    //                     found = true;
+    //                     return false;
+    //                 }
+    //                 if (parseInt(this.innerText.replace(/\D/g, '')) === episode) {
+    //                     origEpisode = this.parentElement.parentElement;
+    //                 }
+    //             });
+    //             if ($(d).find('div.seasonEpisodeList > div:first-child')[0] === origEpisode) {
+    //                 // getting there...
+    //             }
+    //         });
+    //     } else {
+    //         $('a[title="Back to link page"]').remove();
+    //     }
+    // });
 }
